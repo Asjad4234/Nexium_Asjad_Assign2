@@ -1,8 +1,13 @@
-import { supabase, Summary } from '../lib/supabase'
+import { supabase, Summary, isSupabaseConfigured } from '../lib/supabase'
 
 export class SupabaseService {
   // Store a new summary
   static async saveSummary(summary: Omit<Summary, 'id' | 'created_at' | 'updated_at'>): Promise<Summary | null> {
+    if (!isSupabaseConfigured() || !supabase) {
+      console.warn('Supabase not configured, skipping save')
+      return null
+    }
+    
     try {
       const { data, error } = await supabase
         .from('summaries')
@@ -24,6 +29,11 @@ export class SupabaseService {
 
   // Get all summaries
   static async getSummaries(): Promise<Summary[]> {
+    if (!isSupabaseConfigured() || !supabase) {
+      console.warn('Supabase not configured, returning empty array')
+      return []
+    }
+    
     try {
       const { data, error } = await supabase
         .from('summaries')
@@ -44,6 +54,11 @@ export class SupabaseService {
 
   // Get a specific summary by ID
   static async getSummaryById(id: string): Promise<Summary | null> {
+    if (!isSupabaseConfigured() || !supabase) {
+      console.warn('Supabase not configured, returning null')
+      return null
+    }
+    
     try {
       const { data, error } = await supabase
         .from('summaries')
@@ -65,6 +80,11 @@ export class SupabaseService {
 
   // Delete a summary
   static async deleteSummary(id: string): Promise<void> {
+    if (!isSupabaseConfigured() || !supabase) {
+      console.warn('Supabase not configured, skipping delete')
+      return
+    }
+    
     try {
       const { error } = await supabase
         .from('summaries')
@@ -83,6 +103,11 @@ export class SupabaseService {
 
   // Check if a URL has already been summarized
   static async checkExistingSummary(url: string): Promise<Summary | null> {
+    if (!isSupabaseConfigured() || !supabase) {
+      console.warn('Supabase not configured, returning null')
+      return null
+    }
+    
     try {
       const { data, error } = await supabase
         .from('summaries')

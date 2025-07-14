@@ -43,7 +43,10 @@ export function BlogSummarizer() {
       setSavedSummaries(summaries);
     } catch (error) {
       console.error('Error loading saved summaries:', error);
-      toast.error('Failed to load saved summaries');
+      // Don't show error toast if Supabase is not configured
+      if (error instanceof Error && !error.message.includes('not configured')) {
+        toast.error('Failed to load saved summaries');
+      }
     } finally {
       setIsLoadingHistory(false);
     }
@@ -95,7 +98,7 @@ export function BlogSummarizer() {
       };
       
       // Save to Supabase
-      await SupabaseService.saveSummary({
+      const savedSummary = await SupabaseService.saveSummary({
         url: summaryData.url,
         title: summaryData.title,
         summary: summaryData.summary,
@@ -105,10 +108,14 @@ export function BlogSummarizer() {
       });
       
       setSummary(summaryData);
-      toast.success('Blog summarized and saved to database!');
       
-      // Reload saved summaries
-      await loadSavedSummaries();
+      if (savedSummary) {
+        toast.success('Blog summarized and saved to database!');
+        // Reload saved summaries
+        await loadSavedSummaries();
+      } else {
+        toast.success('Blog summarized successfully!');
+      }
     } catch (error) {
       console.error('Error:', error);
       setError(error instanceof Error ? error.message : 'Failed to process blog');
@@ -147,7 +154,10 @@ export function BlogSummarizer() {
       await loadSavedSummaries();
     } catch (error) {
       console.error('Error deleting summary:', error);
-      toast.error('Failed to delete summary');
+      // Don't show error toast if Supabase is not configured
+      if (error instanceof Error && !error.message.includes('not configured')) {
+        toast.error('Failed to delete summary');
+      }
     }
   };
 
