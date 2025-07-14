@@ -1,71 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BlogSummarizer } from './components/BlogSummarizer';
-import { Toaster } from '@/components/ui/sonner';
-import ExpandableSearchBar from './components/ui/expandablesearchbar';
+import { Toaster } from './components/ui/sonner';
+import TextFlip from './components/animata/text/text-flip';
 import './App.css';
-
-function FeatureFlip() {
-  const features = [
-    {
-      label: 'Smart Search',
-      gradient: 'from-blue-600 via-indigo-500 to-purple-600',
-      svg: (
-        <svg className="w-12 h-12 mb-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      ),
-    },
-    {
-      label: 'AI Summary',
-      gradient: 'from-green-600 via-teal-500 to-emerald-600',
-      svg: (
-        <svg className="w-12 h-12 mb-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <rect x="7" y="4" width="10" height="16" rx="2" strokeWidth="2" />
-          <path d="M9 8h6" strokeWidth="2" />
-        </svg>
-      ),
-    },
-    {
-      label: 'Urdu Translation',
-      gradient: 'from-pink-600 via-fuchsia-500 to-purple-600',
-      svg: (
-        <svg className="w-12 h-12 mb-2 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-        </svg>
-      ),
-    },
-  ];
-  const [index, setIndex] = React.useState(0);
-  const [fadeKey, setFadeKey] = React.useState(0);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex(i => {
-        const next = (i + 1) % features.length;
-        setFadeKey(next); // trigger fade
-        return next;
-      });
-    }, 2200);
-    return () => clearInterval(interval);
-  }, []);
-
-  const feature = features[index];
-
-  return (
-    <div className="flex flex-col items-center justify-center min-h-[120px]">
-      <div
-        key={fadeKey}
-        className="bg-white/60 rounded-2xl shadow-lg px-8 py-6 flex flex-col items-center fade-slide-in"
-        style={{ minWidth: 180, minHeight: 120 }}
-      >
-        {feature.svg}
-        <span className={`text-2xl font-bold bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent`}>
-          {feature.label}
-        </span>
-      </div>
-    </div>
-  );
-}
 
 function App() {
   return (
@@ -91,7 +28,7 @@ function App() {
           {/* Logo/Icon */}
           <div className="relative flex items-center justify-center w-28 h-28 mx-auto mb-8">
             {/* Wavy SVG background */}
-            <svg className="absolute inset-0 w-full h-full animate-pulse-slow" viewBox="0 0 112 112" fill="none">
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 112 112" fill="none">
               <defs>
                 <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0%" stopColor="#06beb6" />
@@ -101,7 +38,7 @@ function App() {
               <path d="M56 8C74 8 104 24 104 56C104 88 74 104 56 104C38 104 8 88 8 56C8 24 38 8 56 8Z" fill="url(#waveGrad)" fillOpacity="0.18" />
             </svg>
             {/* Lightbulb icon with gradient ring and floating animation */}
-            <div className="relative z-10 flex items-center justify-center w-20 h-20 rounded-full bg-white shadow-xl animate-float">
+            <div className="relative z-10 flex items-center justify-center w-20 h-20 rounded-full bg-white shadow-xl">
               <svg className="w-10 h-10 text-teal-500" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
                 <path d="M9 18h6m-3 0v2m-4-2a7 7 0 1114 0c0 2.5-2 4.5-4.5 4.5h-5A4.5 4.5 0 015 18z" />
                 <path d="M12 2a7 7 0 00-7 7c0 2.5 2 4.5 4.5 4.5h5A4.5 4.5 0 0019 9a7 7 0 00-7-7z" />
@@ -112,11 +49,16 @@ function App() {
             AI Powered Blog Summarizer
           </h1>
           <p className="text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed font-medium italic text-center pt-4 bg-gradient-to-r from-teal-600 via-fuchsia-600 to-pink-600 bg-clip-text text-transparent">
-            Summarize smarter. Read faster. Powered by AI & Urdu.
+            Summarize smarter. Read faster. Download Summaries.
           </p>
           {/* Feature Icons */}
-          <div className="flex justify-center items-center mt-12">
-            <FeatureFlip />
+          <div className="relative flex justify-center items-center mt-12">
+            {/* Decorative SVGs */}
+            <svg className="absolute -left-8 -top-4 w-8 h-8 text-blue-200 opacity-70" viewBox="0 0 32 32" fill="currentColor"><circle cx="16" cy="16" r="16" /></svg>
+            <svg className="absolute left-1/2 -bottom-6 w-6 h-6 text-fuchsia-200 opacity-60" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12" /></svg>
+            <svg className="absolute right-0 -top-6 w-10 h-10 text-indigo-100 opacity-50" viewBox="0 0 40 40" fill="currentColor"><ellipse cx="20" cy="20" rx="20" ry="16" /></svg>
+            <div className="absolute -right-8 bottom-0 w-4 h-4 bg-teal-200 rounded-full opacity-70"></div>
+            <TextFlip />
           </div>
         </div>
         <BlogSummarizer />
