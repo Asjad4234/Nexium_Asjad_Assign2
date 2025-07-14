@@ -24,7 +24,6 @@ Users can enter a blog URL, which is scraped, summarized, translated to Urdu, an
 ## 🚀 Live Demo
 
 Deployed on Vercel:  
-👉 [nexium-ansh-assign2-auri.vercel.app](https://nexium-ansh-assign2-auri.vercel.app)
 
 ---
 
@@ -108,21 +107,6 @@ The Supabase `summaries` table stores:
 
 ---
 
-## 📸 Screenshots
-
-### **Main Interface**
-![UI Screenshot](./ui/1.PNG)
-![UI Screenshot](./ui/2.PNG)
-![UI Screenshot](./ui/3.PNG)
-
-### **History Management**
-![UI Screenshot](./ui/4.PNG)
-![UI Screenshot](./ui/5.PNG)
-
-### **Accessibility Score**
-![Lighthouse Score](./accessibility/accessibility.PNG)
-
----
 
 ## 🚀 Getting Started
 
