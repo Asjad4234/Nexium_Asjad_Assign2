@@ -24,7 +24,7 @@ Users can enter a blog URL, which is scraped, summarized, translated to Urdu, an
 ## 🚀 Live Demo
 
 Deployed on Vercel:  
-👉 [nexium-ansh-assign2-auri.vercel.app](https://nexium-ansh-assign2-auri.vercel.app)
+https://nexium-asjad-assign2.vercel.app/
 
 ---
 
